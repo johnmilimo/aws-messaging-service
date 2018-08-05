@@ -13,9 +13,9 @@ $ export AWS_REGION=aws_region
 
 ## Build the code
 ```
-- ./gradlew build && java -jar build/libs/java-demo.jar
+$ ./gradlew build && java -jar build/libs/java-demo.jar
 ```
 ## Run
 ```
-- ./gradlew run
+$ ./gradlew run
 ```
