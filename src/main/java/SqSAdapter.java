@@ -7,11 +7,11 @@ import com.amazonaws.services.sns.util.Topics;
 
 public class SqSAdapter extends NQClient {
 
-    static String createQueue(){
+    static String createQueue(String queueName){
         AmazonSQS sqs = initSqsClient();
         String queueUrl;
         try {
-            CreateQueueResult createQueueResult = sqs.createQueue("MyNewQueue");
+            CreateQueueResult createQueueResult = sqs.createQueue(queueName);
             queueUrl = createQueueResult.getQueueUrl();
             System.out.println("Queue url "+ queueUrl);
             return queueUrl;

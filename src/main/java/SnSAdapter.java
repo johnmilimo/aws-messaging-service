@@ -11,12 +11,12 @@ import com.amazonaws.services.sns.model.DeleteTopicRequest;
 
 public class SnSAdapter extends NQClient {
 
-    static String createSnSTopic(){
+    static String createSnSTopic(String topicName){
 
         //create a new SNS client and set endpoint
         AmazonSNSClient snsClient = initSnsClient();
         //create a new SNS topic
-        CreateTopicRequest createTopicRequest = new CreateTopicRequest("MyNewTopic");
+        CreateTopicRequest createTopicRequest = new CreateTopicRequest(topicName);
         CreateTopicResult createTopicResult = snsClient.createTopic(createTopicRequest);
 
         //TopicArn
@@ -28,13 +28,12 @@ public class SnSAdapter extends NQClient {
         return topicArn;
     }
 
-    static void publishMessage(String topicArn){
+    static void publishMessage(String topicArn, String msg){
 
         //create a new SNS client and set endpoint
         AmazonSNSClient snsClient = initSnsClient();
 
         //publish to an SNS topic
-        String msg = "Hello John Wanjala.";
         PublishRequest publishRequest = new PublishRequest(topicArn, msg);
         PublishResult publishResult = snsClient.publish(publishRequest);
 

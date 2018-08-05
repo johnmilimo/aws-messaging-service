@@ -3,16 +3,22 @@
  */
 
 public class App {
-    public String getGreeting() {
-        return "Hello John.";
-    }
 
     public static void main(String[] args) {
 
-        System.out.println(new App().getGreeting());
-        String topicArn = SnSAdapter.createSnSTopic();
-        String queueUrl = SqSAdapter.createQueue();
+        // Create SnS Topic
+        String topicName = "MySampleTopic";
+        String topicArn = SnSAdapter.createSnSTopic(topicName);
+
+        // Create SqS Queue
+        String queueName = "MySampleQueue";
+        String queueUrl = SqSAdapter.createQueue(queueName);
+
+        // Subscribe the Queue to the Topic
         SqSAdapter.subscribeQueue(topicArn, queueUrl);
-        SnSAdapter.publishMessage(topicArn);
+
+        // Publish a sample message to the Topic, and it will be send to the Queue
+        String message = "Hello Mr. Queue!";
+        SnSAdapter.publishMessage(topicArn, message);
     }
 }
