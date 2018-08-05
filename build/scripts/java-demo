@@ -1,0 +1,172 @@
+#!/usr/bin/env sh
+
+##############################################################################
+##
+##  java-demo start up script for UN*X
+##
+##############################################################################
+
+# Attempt to set APP_HOME
+# Resolve links: $0 may be a link
+PRG="$0"
+# Need this for relative symlinks.
+while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
+    else
+        PRG=`dirname "$PRG"`"/$link"
+    fi
+done
+SAVED="`pwd`"
+cd "`dirname \"$PRG\"`/.." >/dev/null
+APP_HOME="`pwd -P`"
+cd "$SAVED" >/dev/null
+
+APP_NAME="java-demo"
+APP_BASE_NAME=`basename "$0"`
+
+# Add default JVM options here. You can also use JAVA_OPTS and JAVA_DEMO_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS=""
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD="maximum"
+
+warn () {
+    echo "$*"
+}
+
+die () {
+    echo
+    echo "$*"
+    echo
+    exit 1
+}
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false
+msys=false
+darwin=false
+nonstop=false
+case "`uname`" in
+  CYGWIN* )
+    cygwin=true
+    ;;
+  Darwin* )
+    darwin=true
+    ;;
+  MINGW* )
+    msys=true
+    ;;
+  NONSTOP* )
+    nonstop=true
+    ;;
+esac
+
+CLASSPATH=$APP_HOME/lib/java-demo.jar:$APP_HOME/lib/guava-23.0.jar:$APP_HOME/lib/aws-java-sdk-1.11.380.jar:$APP_HOME/lib/jsr305-1.3.9.jar:$APP_HOME/lib/error_prone_annotations-2.0.18.jar:$APP_HOME/lib/j2objc-annotations-1.1.jar:$APP_HOME/lib/animal-sniffer-annotations-1.14.jar:$APP_HOME/lib/aws-java-sdk-dlm-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-macie-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-eks-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mediatailor-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-neptune-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-pi-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-iot1clickprojects-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-iot1clickdevices-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-iotanalytics-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-acmpca-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-secretsmanager-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-fms-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-connect-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-transcribe-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-autoscalingplans-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-workmail-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-servicediscovery-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloud9-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-serverlessapplicationrepository-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-alexaforbusiness-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-resourcegroups-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-comprehend-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-translate-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-sagemaker-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-iotjobsdataplane-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-sagemakerruntime-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-kinesisvideo-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-appsync-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-guardduty-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mq-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mediaconvert-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mediastore-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mediastoredata-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-medialive-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mediapackage-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-costexplorer-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-pricing-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mobile-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudhsmv2-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-glue-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-migrationhub-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-dax-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-greengrass-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-athena-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-marketplaceentitlement-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-codestar-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-lexmodelbuilding-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-resourcegroupstaggingapi-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-pinpoint-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-xray-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-opsworkscm-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-support-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-simpledb-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-servicecatalog-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-servermigration-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-swf-libraries-1.11.22.jar:$APP_HOME/lib/aws-java-sdk-simpleworkflow-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-storagegateway-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-route53-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-glacier-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudwatchmetrics-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-dynamodb-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-s3-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-importexport-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-sts-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-sns-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-sqs-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-rds-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-redshift-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-elasticbeanstalk-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-iam-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-datapipeline-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-elasticloadbalancing-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-elasticloadbalancingv2-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-emr-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-elasticache-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-elastictranscoder-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-ec2-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-budgets-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudtrail-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudwatch-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-logs-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-events-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cognitoidentity-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cognitosync-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-directconnect-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudformation-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudfront-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-clouddirectory-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-kinesis-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-opsworks-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-ses-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-autoscaling-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudsearch-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-codedeploy-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-codepipeline-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-kms-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-config-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-lambda-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-ecs-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-ecr-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cloudhsm-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-ssm-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-workspaces-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-machinelearning-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-directory-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-efs-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-codecommit-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-devicefarm-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-elasticsearch-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-waf-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-marketplacecommerceanalytics-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-inspector-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-iot-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-api-gateway-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-acm-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-gamelift-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-dms-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-marketplacemeteringservice-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-cognitoidp-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-discovery-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-applicationautoscaling-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-snowball-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-rekognition-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-polly-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-lightsail-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-stepfunctions-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-health-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-costandusagereport-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-codebuild-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-appstream-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-shield-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-batch-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-lex-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-mechanicalturkrequester-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-organizations-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-workdocs-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-core-1.11.380.jar:$APP_HOME/lib/aws-java-sdk-models-1.11.380.jar:$APP_HOME/lib/jmespath-java-1.11.380.jar:$APP_HOME/lib/netty-codec-http-4.1.17.Final.jar:$APP_HOME/lib/netty-handler-4.1.17.Final.jar:$APP_HOME/lib/httpclient-4.5.5.jar:$APP_HOME/lib/commons-logging-1.2.jar:$APP_HOME/lib/ion-java-1.0.2.jar:$APP_HOME/lib/jackson-databind-2.6.7.1.jar:$APP_HOME/lib/jackson-dataformat-cbor-2.6.7.jar:$APP_HOME/lib/joda-time-2.8.1.jar:$APP_HOME/lib/netty-codec-4.1.17.Final.jar:$APP_HOME/lib/netty-transport-4.1.17.Final.jar:$APP_HOME/lib/netty-buffer-4.1.17.Final.jar:$APP_HOME/lib/httpcore-4.4.9.jar:$APP_HOME/lib/commons-codec-1.10.jar:$APP_HOME/lib/jackson-annotations-2.6.0.jar:$APP_HOME/lib/jackson-core-2.6.7.jar:$APP_HOME/lib/netty-resolver-4.1.17.Final.jar:$APP_HOME/lib/netty-common-4.1.17.Final.jar
+
+# Determine the Java command to use to start the JVM.
+if [ -n "$JAVA_HOME" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+        # IBM's JDK on AIX uses strange locations for the executables
+        JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+        JAVACMD="$JAVA_HOME/bin/java"
+    fi
+    if [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
+else
+    JAVACMD="java"
+    which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+fi
+
+# Increase the maximum file descriptors if we can.
+if [ "$cygwin" = "false" -a "$darwin" = "false" -a "$nonstop" = "false" ] ; then
+    MAX_FD_LIMIT=`ulimit -H -n`
+    if [ $? -eq 0 ] ; then
+        if [ "$MAX_FD" = "maximum" -o "$MAX_FD" = "max" ] ; then
+            MAX_FD="$MAX_FD_LIMIT"
+        fi
+        ulimit -n $MAX_FD
+        if [ $? -ne 0 ] ; then
+            warn "Could not set maximum file descriptor limit: $MAX_FD"
+        fi
+    else
+        warn "Could not query maximum file descriptor limit: $MAX_FD_LIMIT"
+    fi
+fi
+
+# For Darwin, add options to specify how the application appears in the dock
+if $darwin; then
+    GRADLE_OPTS="$GRADLE_OPTS \"-Xdock:name=$APP_NAME\" \"-Xdock:icon=$APP_HOME/media/gradle.icns\""
+fi
+
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin ; then
+    APP_HOME=`cygpath --path --mixed "$APP_HOME"`
+    CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
+    JAVACMD=`cygpath --unix "$JAVACMD"`
+
+    # We build the pattern for arguments to be converted via cygpath
+    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
+    SEP=""
+    for dir in $ROOTDIRSRAW ; do
+        ROOTDIRS="$ROOTDIRS$SEP$dir"
+        SEP="|"
+    done
+    OURCYGPATTERN="(^($ROOTDIRS))"
+    # Add a user-defined pattern to the cygpath arguments
+    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
+        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
+    fi
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    i=0
+    for arg in "$@" ; do
+        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
+        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
+
+        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
+            eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
+        else
+            eval `echo args$i`="\"$arg\""
+        fi
+        i=$((i+1))
+    done
+    case $i in
+        (0) set -- ;;
+        (1) set -- "$args0" ;;
+        (2) set -- "$args0" "$args1" ;;
+        (3) set -- "$args0" "$args1" "$args2" ;;
+        (4) set -- "$args0" "$args1" "$args2" "$args3" ;;
+        (5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
+        (6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
+        (7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
+        (8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
+        (9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+    esac
+fi
+
+# Escape application args
+save () {
+    for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
+    echo " "
+}
+APP_ARGS=$(save "$@")
+
+# Collect all arguments for the java command, following the shell quoting and substitution rules
+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $JAVA_DEMO_OPTS -classpath "\"$CLASSPATH\"" App "$APP_ARGS"
+
+# by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
+if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ]; then
+  cd "$(dirname "$0")"
+fi
+
+exec "$JAVACMD" "$@"
