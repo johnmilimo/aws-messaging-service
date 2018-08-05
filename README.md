@@ -1,4 +1,4 @@
-# SNS and SQS in action
+# AWS SNS and SQS in action
 
 ## Set AWS credentials on your environment
 
