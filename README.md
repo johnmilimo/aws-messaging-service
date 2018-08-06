@@ -11,14 +11,9 @@ $ export AWS_ACCESS_KEY_ID=your_aws_access_key_id
 $ export AWS_REGION=aws_region
 ```
 
-## Build the code
-```
-$ ./gradlew build && java -jar build/libs/java-demo.jar
-```
-
 ## Run
 ```
-$ ./gradlew run
+$ bash run.sh
 ```
 
 ## What happens when the service runs
@@ -37,3 +32,13 @@ $ ./gradlew run
 ```
 https://github.com/johnmilimo/java-demo/blob/master/src/main/java/App.java
 ```
+
+
+## Try it from the browser!
+
+```
+http://localhost:8080/java-demo
+
+You can view all the published messages, and you can also publish new messages from the browser.
+```
+
