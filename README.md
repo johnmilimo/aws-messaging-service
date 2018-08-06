@@ -19,3 +19,10 @@ $ ./gradlew build && java -jar build/libs/java-demo.jar
 ```
 $ ./gradlew run
 ```
+
+
+## For more details
+
+```
+https://github.com/johnmilimo/java-demo/blob/master/src/main/java/App.java
+```
