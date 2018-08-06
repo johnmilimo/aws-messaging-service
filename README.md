@@ -13,7 +13,7 @@ $ export AWS_REGION=aws_region
 
 ## Run
 ```
-$ bash run.sh
+$ ./run.sh
 ```
 
 ## What happens when the service runs
