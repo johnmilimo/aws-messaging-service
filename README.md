@@ -15,7 +15,25 @@ $ export AWS_REGION=aws_region
 ```
 $ ./gradlew build && java -jar build/libs/java-demo.jar
 ```
+
 ## Run
 ```
 $ ./gradlew run
+```
+
+## What happens when the service runs
+
+        1) A SnS Topic is created named `MySampleTopic`
+
+        2) A SqS Queue is created named `MySampleQueue`
+
+        3) The queue is subscribed to the Topic
+
+        4) A message is published to the Topic, and it should appear on the Queue
+
+
+## For more details
+
+```
+https://github.com/johnmilimo/java-demo/blob/master/src/main/java/App.java
 ```
