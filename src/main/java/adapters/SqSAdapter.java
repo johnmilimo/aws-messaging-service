@@ -1,13 +1,17 @@
+package adapters;
+
+import adapters.NQClient;
 import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import com.amazonaws.services.sqs.model.AmazonSQSException;
-import com.amazonaws.services.sqs.model.CreateQueueRequest;
 import com.amazonaws.services.sqs.model.CreateQueueResult;
+import com.amazonaws.services.sqs.model.Message;
 import com.amazonaws.services.sns.util.Topics;
+
+import java.util.List;
 
 public class SqSAdapter extends NQClient {
 
-    static String createQueue(String queueName){
+    public String createQueue(String queueName){
         AmazonSQS sqs = initSqsClient();
         String queueUrl;
         try {
@@ -21,8 +25,16 @@ public class SqSAdapter extends NQClient {
         return null;
     }
 
-    static void subscribeQueue(String topicArn, String queueUrl){
+    public void subscribeQueue(String topicArn, String queueUrl){
         // Subscribe Topic with Queue
         Topics.subscribeQueue(initSnsClient(), initSqsClient(), topicArn, queueUrl);
+    }
+
+    public String getQueueUrl(String queueName){
+        return initSqsClient().getQueueUrl(queueName).getQueueUrl();
+    }
+
+    public List<Message> getMessages(String queueUrl){
+        return initSqsClient().receiveMessage(queueUrl).getMessages();
     }
 }
